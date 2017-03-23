@@ -1,0 +1,28 @@
+.gallery {
+  a.swipebox {
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
+
+
+#box-container {
+  width: 90%;
+  margin: 0 auto;
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.box {
+  list-style-type: none;
+  float: left;
+  margin-bottom: 1rem;
+  margin-left: 1%;
+  margin-right: 1%;
+  width: 23%
+}

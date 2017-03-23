@@ -1,0 +1,95 @@
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+    background: none;
+    border: 0;
+    color: inherit;
+    /* cursor: default; */
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
+    -webkit-appearance: button; /* for input */
+    -webkit-user-select: none; /* for button */
+       -moz-user-select: none;
+        -ms-user-select: none;
+}
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+
+form {
+  width: 50%;
+  min-width: 200px;
+  margin: 0 auto;
+  legend {
+    width: 100%;
+    font-size: 1.6em;
+    line-height: 1.25;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  .input-group {
+    clear: fix;
+    margin: 1em auto;
+    label {
+      display: block;
+      margin-bottom: 10px;
+      clear: both;
+    }
+    .text-input {
+      @include appearance(none);
+      border: none;
+      display: inline-block;
+      width: 68%;
+      float: left;
+      padding: 10px 5px;
+      margin: 0;
+      font-size: 18px;
+      border-radius: 0;
+      &:focus, &:active {
+        outline-style:none;
+        box-shadow:none;
+        border-color:transparent;
+        @include animation(background .55s ease-in);
+
+      }
+
+    }
+    input[type='submit'] {
+      border-radius: 0;
+      padding:0;
+      display: inline-block;
+      float: left;
+      width: 30%;
+      height: 41px;
+      color: #fff;
+      text-transform: uppercase;
+      background-color: $color-red;
+      box-shadow: 0 2px 10px rgba(#000, .08);
+      @include font-smoothing;
+      @include transition(box-shadow .3s);
+      .no-touch &:hover {
+        box-shadow: 0 6px 20px rgba(#000, .8);
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  form {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 553px) {
+
+  input[type='submit'] {
+      height: 42px !important;
+    }
+}

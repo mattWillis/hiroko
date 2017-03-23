@@ -1,0 +1,386 @@
+$output-bourbon-deprecation-warnings: false;
+@import 'bourbon'; // http://bourbon.io/
+
+@import 'swipebox';
+
+@import '../partials/variables'; // colors, fonts etc...
+
+@import '../partials/mixins'; // custom mixins
+
+@import '../partials/layout'; // responsive grid and media queries
+
+@import '../partials/leaf';
+
+@import '../partials/swiper';
+
+@import '../partials/form';
+
+
+
+/* --------------------------------
+
+Primary style
+
+-------------------------------- */
+
+*, *::after, *::before {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font: {
+		size: 1.6rem;
+		family: $primary-font; // variables inside partials > _variables.scss
+
+	}
+	color: $color-1;
+	background-color: $color-3;
+  background: url(../img/sky-bg-comp.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+html, body {
+	max-height: 100vh;
+}
+
+a {
+	color: $color-2;
+	text-decoration: none;
+}
+
+/* --------------------------------
+
+Patterns - reusable parts of our design
+
+-------------------------------- */
+
+.cd-btn {
+	display: inline-block;
+	padding: 1.6em 2.4em;
+	font-size: 1.4rem;
+	letter-spacing: .5em;
+	color: #fff;
+	font-weight: 100;
+	text-transform: uppercase;
+	background-color: $color-red;
+	box-shadow: 0 2px 10px rgba(#000, .08);
+	margin: 0 auto;
+	@include font-smoothing;
+	@include transition(box-shadow .3s);
+
+	.no-touch &:hover {
+		box-shadow: 0 6px 20px rgba(#000, .8);
+	}
+	&.signup {
+		display: block;
+		width: 80%;
+		margin: 0 auto;
+		line-height: 1.75;
+		padding: 1em;
+		text-align: center;
+	}
+}
+
+/* --------------------------------
+
+Typography
+
+-------------------------------- */
+
+h1, legend {
+	font-size: 2.6rem;
+	line-height: 1;
+	margin-bottom: 1em;
+	font-family: $secondary-font;
+	font-style: italic;
+
+	@include MQ(M) {
+		font-size: 5rem;
+	}
+}
+
+/* --------------------------------
+
+Main Content
+
+-------------------------------- */
+
+main {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 1;
+	text-align: center;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: center;
+}
+
+#dragon {
+	max-width: 400px;
+	height: auto;
+	z-index: 9999999;
+}
+
+.title-img {
+	display: block;
+	margin: 0 auto;
+	margin-top: -3em;
+	width: 250px;
+	height: auto;
+	// margin-bottom: 5em;
+}
+
+.coming-to {
+	margin: 0 auto;
+	color: white;
+	text-align: center;
+	p {
+		margin-bottom: 1em;
+	}
+	img {
+		margin: 0 auto;
+	}
+}
+
+/* --------------------------------
+
+Modal window
+
+-------------------------------- */
+
+.cd-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	background: $color-4 url(../img/modal-bg-red.png) no-repeat center center;
+	background-size: cover;
+	opacity: 0;
+	visibility: hidden;
+	@include transition(opacity .3s 0s, visibility 0s .3s);
+
+	.modal-content {
+		height: 100%;
+		overflow-y: auto;
+		padding: 3em 5%;
+		color: $color-5;
+		@include font-smoothing;
+	}
+
+	h1, legend {
+		text-align: center;
+
+		&::after {
+			/* ink/brush separation */
+			content: '';
+			display: block;
+			width: 130px;
+			height: 18px;
+			background: url(../img/ink-separation.svg) no-repeat center center;
+			margin: .2em auto 0;
+		}
+	}
+
+	p {
+		clear: both;
+		line-height: 1.6;
+		margin: 2em auto;
+		max-width: 800px;
+		text-align: justify;
+		&:last-of-type {
+			margin-bottom: 3em;
+		}
+	}
+
+	.modal-close {
+		/* 'X' icon */
+		position: absolute;
+		z-index: 1;
+		top: 20px;
+		right: 5%;
+		height: 45px;
+		width: 45px;
+		border-radius: 50%;
+		background: rgba(#000, .3) url(../img/cd-icon-close.svg) no-repeat center center;
+
+		/* image replacement */
+		overflow: hidden;
+		text-indent: 100%;
+		white-space: nowrap;
+
+		visibility: hidden;
+		opacity: 0;
+		@include transform(scale(0));
+		@include transition(transform .3s 0s, visibility 0s .3s, opacity .3s 0s);
+
+		.no-touch &:hover {
+			background-color: rgba(#000, .5);
+		}
+	}
+
+	&.visible {
+		opacity: 1;
+		visibility: visible;
+		@include transition(opacity .7s, visibility 0s);
+
+		.modal-content {
+			/* this fixes the buggy scrolling on webkit browsers - mobile devices only - when overflow property is applied */
+			-webkit-overflow-scrolling: touch;
+		}
+
+		.modal-close {
+			visibility: visible;
+			opacity: 1;
+			@include transition(transform .3s 0s, visibility 0s 0s, opacity .3s 0s);
+			@include transform(scale(1));
+		}
+	}
+
+	@include MQ(L) {
+		.modal-content {
+			padding: 6em 5%;
+		}
+
+		.modal-close {
+			height: 60px;
+			width: 60px;
+		}
+
+		p {
+			font-size: 2rem;
+		}
+	}
+}
+
+/* --------------------------------
+
+Transition Layer
+
+-------------------------------- */
+
+.cd-transition-layer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	visibility: hidden;
+	overflow: hidden;
+
+	.bg-layer {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		@include transform(translateY(-50%) translateX(-2%));
+		/* its dimentions will be overwritten using jQuery to proportionally fit the viewport */
+		height: 100%;
+		/* our sprite is composed of 25 frames */
+		width: 2500%;
+		background: url(../img/ink-red.png) no-repeat 0 0;
+		background-size: 100% 100%;
+	}
+
+	&.visible {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	&.opening .bg-layer {
+		@include animation(cd-sequence .8s steps(24));
+		@include animation-fill-mode(forwards);
+	}
+
+	&.closing .bg-layer {
+		@include animation(cd-sequence-reverse .8s steps(24));
+		@include animation-fill-mode(forwards);
+	}
+
+	.no-cssanimations & {
+		display: none;
+	}
+}
+
+@include keyframes(cd-sequence) {
+	0% {
+		/* translateX(-2%) is used to horizontally center the first frame inside the viewport */
+		@include transform(translateY(-50%) translateX(-2%));
+	}
+	100% {
+		/* translateX(-98%) (2% + 96) is used to horizontally center the last frame inside the viewport  */
+   		@include transform(translateY(-50%) translateX(-98%));
+	}
+}
+
+@include keyframes(cd-sequence-reverse) {
+	0% {
+		@include transform(translateY(-50%) translateX(-98%));
+	}
+	100% {
+   		@include transform(translateY(-50%) translateX(-2%));
+	}
+}
+
+@media screen and (min-width: 414px){
+	.title-img {
+		width: 300px;
+		margin-top: 0;
+	}
+	.cd-btn {
+		margin-top: 4em;
+	}
+}
+
+@media screen and (max-width: 375px){
+	.title-img {
+		margin-top: 1em;
+	}
+	.cd-btn {
+		margin-top: 4em;
+	}
+	// .coming-to {
+	// 	margin-top: -1em;
+	// }
+}
+
+@media screen and (max-width: 320px){
+	.title-img {
+		margin-top: 1em;
+	}
+	.cd-btn {
+		margin-top: 3em;
+	}
+
+}
+
+img.featherlight-image.featherlight-inner {
+	max-width: 100% !important;
+	height: auto !important;
+}
+
+.featherlight .featherlight-content {
+	background-image: url(../assets/scroll-bg.png) !important;
+	background-repeat: repeat;
+}
+
+.featherlight .featherlight-close-icon {
+	background: rgba(0, 0, 0, .3) !important;
+	color: #fff !important;
+}
